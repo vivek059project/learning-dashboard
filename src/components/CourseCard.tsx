@@ -5,6 +5,7 @@ import { BookOpen, Code, Brain } from "lucide-react";
 
 type Props = {
   course: Course;
+  index: number;
 };
 
 const icons = {
@@ -21,14 +22,18 @@ export default function CourseCard({ course }: Props) {
    <motion.article
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
-  whileHover={{ scale: 1.03 }}
+  whileHover={{
+    scale: 1.02,
+    y: -4,
+  }}
   transition={{
     type: "spring",
     stiffness: 300,
     damping: 20,
   }}
-  className="p-5 rounded-xl bg-zinc-900 text-white border border-zinc-800 hover:border-zinc-600 transition"
+  className="relative p-5 rounded-xl bg-zinc-900 text-white border border-zinc-800 overflow-hidden"
 >
+   <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-violet-500/20 to-cyan-500/20 blur-2xl" />
       
       {/* Header */}
       <div className="flex items-center gap-3">
@@ -49,13 +54,19 @@ export default function CourseCard({ course }: Props) {
 
         {/* Progress bar */}
         <div className="w-full h-2 bg-zinc-800 rounded-full mt-2 overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-violet-500 to-cyan-500"
-            style={{ width: `${course.progress}%` }}
-          />
-        </div>
+  <motion.div
+    className="h-full bg-gradient-to-r from-violet-500 to-cyan-500"
+    initial={{ width: 0 }}
+    animate={{ width: `${course.progress}%` }}
+    transition={{
+      duration: 1,
+      ease: "easeOut",
+    }}
+  />
+</div>
 
       </div>
+      
 
     </motion.article>
   );

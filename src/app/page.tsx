@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { Course } from "@/types/course";
 
+import MobileNav from "@/components/MobileNav";
 import Sidebar from "@/components/Sidebar";
 import HeroTile from "@/components/HeroTile";
 import CourseCard from "@/components/CourseCard";
@@ -47,15 +48,19 @@ export default async function Home() {
 
           {/* Courses */}
           <section className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {courses.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
+            {courses.map((course, index) => (
+  <CourseCard
+    key={course.id}
+    course={course}
+    index={index}
+  />
+))}
           </section>
 
         </section>
 
       </section>
-
+      <MobileNav/>
     </main>
   );
 }
